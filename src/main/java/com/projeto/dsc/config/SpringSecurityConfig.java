@@ -30,6 +30,8 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers(HttpMethod.POST, "api/v1/usuarios/createUser").permitAll()
                                 .requestMatchers(HttpMethod.POST, "api/v1/usuarios/").permitAll()
+                                .requestMatchers(HttpMethod.POST, "api/v1/vagas").permitAll()
+                                .requestMatchers(HttpMethod.POST, "api/v1/vagas/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "api/v1/auth").permitAll()
                                 .anyRequest().authenticated()
                         ).sessionManagement(

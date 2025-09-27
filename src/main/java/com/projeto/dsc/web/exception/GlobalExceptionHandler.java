@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
                 .body(new ErrorMessage(request,HttpStatus.NOT_FOUND, ex.getMessage()));
     }
 
-    @ExceptionHandler({UserNameUniqueViolationException.class, CpfUniqueViolationException.class})
+    @ExceptionHandler({UserNameUniqueViolationException.class, CpfUniqueViolationException.class , CodigoUniqueViolationException.class})
     public ResponseEntity<ErrorMessage> uniqueViolationException(RuntimeException ex, HttpServletRequest request) {
 
         log.error("Api Error - ", ex);

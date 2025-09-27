@@ -30,7 +30,7 @@ public class ClienteService {
 
     @Transactional(readOnly = true)
     public Cliente findById(Long id) {
-        return clienteRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(String.format("Clinte id=%s nao encontrado no sistema", id)));
+        return clienteRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(String.format("Clinte id='%s' nao encontrado no sistema", id)));
     }
 
 
