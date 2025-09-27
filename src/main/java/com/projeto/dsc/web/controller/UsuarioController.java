@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,17 +30,20 @@ public class UsuarioController {
     }
 
     @GetMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN') OR (hasRole('CLIENT') AND #id == authentication.principal.id)")
     public ResponseEntity<UsuarioResponseDto> getById(@PathVariable Long id) {
         Usuario userId = usuarioService.buscarPorId(id);
         return ResponseEntity.ok(UsuarioMapper.toDto(userId));
     }
     @PatchMapping("{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','CLIENT') AND (#id == authentication.principal.id)")
     public ResponseEntity<Void> updatePassword(@PathVariable Long id, @Valid @RequestBody UsuarioSenhaDto dto) {
         usuarioService.editarSenha(id, dto.getSenhaAtual(),dto.getNovaSenha(),dto.getConfirmaSenha());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping()
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<UsuarioResponseDto>> getAllUser(Pageable usuario) {
         Page<Usuario> userId = usuarioService.buscarTodosUsuarios(usuario);
         return ResponseEntity.ok(UsuarioMapper.toPageDto(userId));
