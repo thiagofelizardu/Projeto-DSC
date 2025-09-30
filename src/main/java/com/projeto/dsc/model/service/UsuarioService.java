@@ -25,6 +25,9 @@ public class UsuarioService implements UsuarioServiceImpl {
     @Transactional
     public Usuario salvar(Usuario usuario) {
         try {
+            if(usuario.getRole() == null){
+                usuario.setRole(Role.ROLE_CLIENT);
+            }
             usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
             return usuarioRepository.save(usuario);
 

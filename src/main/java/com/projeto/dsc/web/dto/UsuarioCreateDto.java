@@ -1,7 +1,10 @@
 package com.projeto.dsc.web.dto;
 
+import com.projeto.dsc.model.enums.Role;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -19,5 +22,7 @@ public class UsuarioCreateDto {
     @NotBlank
     @Size(min = 6, max = 20,message = "a senha deve conter no maximo 20 caracteres")
     private String password;
+
+    private Role role;
 
 }
