@@ -10,9 +10,6 @@ API para gerenciamento de estacionamento, com suporte a usuários, clientes, vag
 docker-compose up
 ```
 
-
-
-
 ---
 
 ## Base URL
@@ -30,32 +27,34 @@ Content-Type: application/json
 
 ## 0) Pré-requisitos
 - Aplicação rodando em `http://localhost:9090`.
-- Sempre gere um token novo em `/api/v1/auth`.
+- Sempre gere um token novo em `/api/v1/auth` obs: por padrão a duração do token esta em 30min.
 
 ---
 
 ## 1) Usuários
 
-### 1.1 Criar usuário
+### 1.1 Criar usuário (**público**)
 **POST** `/api/v1/usuarios/createUser`
 ```json
 { "username": "ana@email.com", "password": "123456" }
 ```
 
-### 1.2 Autenticar (obter JWT)
+### 1.2 Autenticar (obter JWT) (**público**)  
+Tem acesso às portas de acordo com a role do usuário autenticado (ADMIN ou CLIENT).
+
 **POST** `/api/v1/auth`
 ```json
 { "username": "admin@email.com", "password": "123456" }
 ```
 Resposta: `{ "token": "..." }`
 
-### 1.3 Buscar usuário por ID
+### 1.3 Buscar usuário por ID (**ADMIN**)
 **GET** `/api/v1/usuarios/{id}`
 
-### 1.4 Listar usuários (paginação)
+### 1.4 Listar usuários (paginação) (**ADMIN**)
 **GET** `/api/v1/usuarios?page=1&size=4`
 
-### 1.5 Atualizar senha
+### 1.5 Atualizar senha (**CLIENT** pode alterar apenas a própria senha)
 **PATCH** `/api/v1/usuarios/{id}`
 ```json
 {
@@ -69,16 +68,19 @@ Resposta: `{ "token": "..." }`
 
 ## 2) Clientes
 
-### 2.1 Criar cliente
+### 2.1 Criar cliente (**ADMIN**)
 **POST** `/api/v1/clientes`
 ```json
 { "nome": "tody da silva", "cpf": "11259547019" }
 ```
 
-### 2.2 Listar clientes
+### 2.2 Listar clientes (**ADMIN**)
 **GET** `/api/v1/clientes`
 
-### 2.3 Buscar detalhes do cliente
+### 2.3 Buscar detalhes do cliente  
+- **ADMIN**: pode buscar detalhes de qualquer cliente.  
+- **CLIENT**: pode buscar apenas os próprios dados (pelo CPF).  
+
 - Se a API suportar query string:
   **GET** `/api/v1/clientes/detalhes?cpf=11259547019`
 - Se exigir body:
@@ -89,22 +91,22 @@ Resposta: `{ "token": "..." }`
 
 ---
 
-## 3) Vagas (ADMIN)
+## 3) Vagas
 
-### 3.1 Criar vaga
+### 3.1 Criar vaga (**ADMIN**)
 **POST** `/api/v1/vagas`
 ```json
 { "codigo": "A-08", "status": "LIVRE" }
 ```
 
-### 3.2 Buscar vaga por código
+### 3.2 Buscar vaga por código (**CLIENT** e **ADMIN**)
 **GET** `/api/v1/vagas/{codigo}`
 
 ---
 
 ## 4) Estacionamento
 
-### 4.1 Check-in
+### 4.1 Check-in (**CLIENT**)
 **POST** `/api/v1/estacionamentos/check-in`
 ```json
 {
@@ -117,25 +119,25 @@ Resposta: `{ "token": "..." }`
 ```
 Resposta: retorna um **recibo** (ex.: `20250929-193541`).
 
-### 4.2 Check-out
+### 4.2 Check-out (**CLIENT**)
 **GET** `/api/v1/estacionamentos/check-out/{recibo}`
 
 ---
 
 ## 5) Sequência Recomendada
 
-1. Criar usuário → `/usuarios/createUser`
-2. Autenticar → `/auth`
-3. Buscar usuário por ID → `/usuarios/{id}`
-4. Listar usuários → `/usuarios?page=1&size=4`
-5. Atualizar senha → `/usuarios/{id}`
-6. Criar cliente → `/clientes`
-7. Listar clientes → `/clientes`
-8. Detalhes do cliente → `/clientes/detalhes`
-9. Criar vaga (ADMIN) → `/vagas`
-10. Buscar vaga → `/vagas/{codigo}`
-11. Check-in → `/estacionamentos/check-in`
-12. Check-out → `/estacionamentos/check-out/{recibo}`
+1. Criar usuário → `/usuarios/createUser` (**público**)  
+2. Autenticar → `/auth` (**público**)  
+3. Buscar usuário por ID → `/usuarios/{id}` (**ADMIN**)  
+4. Listar usuários → `/usuarios?page=1&size=4` (**ADMIN**)  
+5. Atualizar senha → `/usuarios/{id}` (**CLIENT**)  
+6. Criar cliente → `/clientes` (**ADMIN**)  
+7. Listar clientes → `/clientes` (**ADMIN**)  
+8. Detalhes do cliente → `/clientes/detalhes` (**ADMIN** qualquer cliente / **CLIENT** apenas próprio CPF)  
+9. Criar vaga → `/vagas` (**ADMIN**)  
+10. Buscar vaga → `/vagas/{codigo}` (**CLIENT** e **ADMIN**)  
+11. Check-in → `/estacionamentos/check-in` (**CLIENT**)  
+12. Check-out → `/estacionamentos/check-out/{recibo}` (**CLIENT**)  
 
 ---
 
