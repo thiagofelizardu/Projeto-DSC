@@ -9,6 +9,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.projeto.dsc.model.enums.StatusVaga.LIVRE;
+
 @Service
 @RequiredArgsConstructor
 public class VagaService {
@@ -29,5 +31,8 @@ public class VagaService {
                 ()-> new EntityNotFoundException(String.format("Vaga com o codigo = '%s' ja cadastrada",codigo))
         );
     }
-
+    @Transactional(readOnly = true)
+    public Vaga buscarVagaLivre() {
+        return vagaRepository.findFirstByStatus(LIVRE).orElseThrow(()-> new EntityNotFoundException("Nenhuma vaga encontrada"));
+    }
 }
