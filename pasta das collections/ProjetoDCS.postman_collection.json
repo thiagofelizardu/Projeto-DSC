@@ -1,0 +1,447 @@
+{
+	"info": {
+		"_postman_id": "8ae07709-37ed-4dea-8477-dd5acc74f742",
+		"name": "ProjetoDCS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26168747",
+		"_collection_link": "https://thiago-team-3351.postman.co/workspace/Park-API~17f8c70b-fc7f-4daf-be88-4bb6cf5f1768/collection/26168747-8ae07709-37ed-4dea-8477-dd5acc74f742?action=share&source=collection_link&creator=26168747"
+	},
+	"item": [
+		{
+			"name": "ProjetoDCs",
+			"item": [
+				{
+					"name": "Usuarios - criar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"ana@email.com\",\r\n    \"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/v1/usuarios/createUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"v1",
+								"usuarios",
+								"createUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"admin@email.com\",\r\n    \"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/v1/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"v1",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usuarios - buscarID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmFAZW1haWwuY29tIiwiaWF0IjoxNzU4OTkxODI0LCJleHAiOjE3NTg5OTM2MjQsInJvbGUiOiJDTElFTlQifQ.db78SE55PLPNhGQiaupAfSLhgon0TqH9JAh0lVTHPRU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/v1/usuarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"v1",
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usuarios  - buscarTodos(Paginacao)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3NTg5OTM2OTEsImV4cCI6MTc1ODk5NTQ5MSwicm9sZSI6IkFETUlOIn0.VHZbh4Xb5ZQWPqkR35Zb_uKCZCTLGeWA43sb4uWlcyo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/v1/usuarios?page =1&size=4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"v1",
+								"usuarios"
+							],
+							"query": [
+								{
+									"key": "page ",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cliente - buscarTodos(Paginacao)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3NTg5OTQ5MzgsImV4cCI6MTc1ODk5NjczOCwicm9sZSI6IkFETUlOIn0.C_whhkJnPk3ITTaRZKMvh1okjIXfo44fBaG6op3HhhY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/v1/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"v1",
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usuarios - Update Senha",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3NTg5OTAxODAsImV4cCI6MTc1OTA4MDMwMCwicm9sZSI6IkNMSUVOVCJ9.Pnd3EC3FoS7TCGnQUAwEZukmLGJ7Rdg-11t_-IWaY3c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"senhaAtual\":\"123456\",\r\n    \"novaSenha\":\"1234567891\",\r\n    \"confirmaSenha\": \"1234567891\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/v1/usuarios/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"v1",
+								"usuarios",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clientes - Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b2R5QGVtYWlsLmNvbSIsImlhdCI6MTc1ODk5Mzg1OSwiZXhwIjoxNzU4OTk1NjU5LCJyb2xlIjoiQ0xJRU5UIn0.aAQHWYtHge816Sbo8rSrMQ1VdNy3RNL0xB0rMOZhQ9E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\":\"tody da silva\",\r\n    \"cpf\":\"11259547019\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/v1/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"v1",
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clientes - detalhes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b2R5QGVtYWlsLmNvbSIsImlhdCI6MTc1ODk5NTQxNSwiZXhwIjoxNzU4OTk3MjE1LCJyb2xlIjoiQ0xJRU5UIn0.bCcu2j-yxoeGV-Tn9NK2EEzHXWb6wkc9z0tqAx67PM0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\":\"tody da silva\",\r\n    \"cpf\":\"11259547019\"\r\n\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/v1/clientes/detalhes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"v1",
+								"clientes",
+								"detalhes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vagas - create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3NTkxODQ4NjYsImV4cCI6MTc1OTE4NjY2Niwicm9sZSI6IkFETUlOIn0.5jibiT9jrPYpTLPDOh2k5MS2KmSQIi6vvBbttOr6_Ts",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codigo\":\"A-08\",\r\n    \"status\":\"LIVRE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/v1/vagas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"v1",
+								"vagas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vagas- Get Bycodigo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3NTg5OTc1OTUsImV4cCI6MTc1ODk5OTM5NSwicm9sZSI6IkFETUlOIn0.jNiHj9f6iuBpuQW2lzVac18j3gOGWUHeCOamPS-MqqE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/v1/vagas/A-01",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"v1",
+								"vagas",
+								"A-01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Estacionamento - checkIn",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3NTkxODQ4NjYsImV4cCI6MTc1OTE4NjY2Niwicm9sZSI6IkFETUlOIn0.5jibiT9jrPYpTLPDOh2k5MS2KmSQIi6vvBbttOr6_Ts",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clienteCpf\":\"11259547019\",\r\n    \"placa\":\"ASC-1234\",\r\n    \"marca\":\"FIAT\",\r\n    \"modelo\":\"Siena\",\r\n    \"cor\":\"azul\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/v1/estacionamentos/check-in",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"v1",
+								"estacionamentos",
+								"check-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Estacionamento - checkOut",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3NTkxODkyNjYsImV4cCI6MTc1OTE5MTA2Niwicm9sZSI6IkFETUlOIn0.BKZLRvo2lY0PCe7wbeNYfz1yKeySuFfp6pSZE1t2w-k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/v1/estacionamentos/check-out/20250929-193541",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"v1",
+								"estacionamentos",
+								"check-out",
+								"20250929-193541"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
