@@ -62,7 +62,7 @@ Content-Type: application/json
 
 ```json
 {
-    "username":"ana@email.com",
+    "username": "admin@email.com",
     "password":"123456",
     "role":"ROLE_ADMIN"
 
