@@ -56,6 +56,18 @@ Content-Type: application/json
   "password": "123456"
 }
 ```
+### 1.1 Criar usuário ADMIN para ter acesso a todos os EndPoints(acesso: **público**)
+
+**POST** `/api/v1/usuarios/createUser`
+
+```json
+{
+    "username":"ana@email.com",
+    "password":"123456",
+    "role":"ROLE_ADMIN"
+
+}
+```
 
 ### 1.2 Autenticar (acesso: **público**)
 
