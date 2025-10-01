@@ -40,7 +40,7 @@ Content-Type: application/json
 
 - A aplicação deve estar rodando em `http://localhost:9090`.
 - Gere um novo token via login em `/api/v1/auth`.
-- Duração padrão do token: 30 minutos.
+- Duração padrão do token: 1 hora.
 
 ---
 
