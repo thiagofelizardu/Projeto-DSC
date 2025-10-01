@@ -180,7 +180,14 @@ Content-Type: application/json
 
 ### 4.2 Check-out (acesso: **ADMIN**)
 
+Ir nos Headers da response e pegar o Location e colocar na ulr da request: `Estacionamento - checkOut`
+
+Exemplo: `http://localhost:9090/api/v1/estacionamentos/check-in/20251001-203756`
+
+Ou passar dessa forma com o {recibo} do check-in
+
 **GET** `/api/v1/estacionamentos/check-out/{recibo}`
+
 
 ---
 
