@@ -1,0 +1,394 @@
+openapi: 3.0.3
+info:
+  title: ProjetoDCS API
+  version: "1.0.0"
+  description: |
+    Especificação OpenAPI derivada da Postman Collection "ProjetoDCS".
+    **Observações**:
+    - Endpoints protegidos usam **JWT Bearer** (vide `securitySchemes`).
+    - Exemplos de payloads foram extraídos da collection.
+    - Ajuste detalhes de schemas e respostas conforme sua implementação real.
+servers:
+  - url: http://localhost:9090
+    description: Ambiente local
+
+tags:
+  - name: Auth
+  - name: Usuarios
+  - name: Clientes
+  - name: Vagas
+  - name: Estacionamentos
+
+paths:
+  /api/v1/auth:
+    post:
+      tags: [Auth]
+      summary: Autenticar e obter JWT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+            examples:
+              default:
+                value:
+                  username: admin@email.com
+                  password: "123456"
+      responses:
+        '200':
+          description: Token JWT emitido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '401':
+          description: Credenciais inválidas
+
+  /api/v1/usuarios/createUser:
+    post:
+      tags: [Usuarios]
+      summary: Criar usuário (ROLE_CLIENT por padrão, salvo indicação em sua API)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequest'
+            examples:
+              default:
+                value:
+                  username: ana@email.com
+                  password: "123456"
+      responses:
+        '201':
+          description: Usuário criado
+        '400':
+          description: Erro de validação
+
+  /api/v1/usuarios/{id}:
+    get:
+      tags: [Usuarios]
+      summary: Buscar usuário por ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Dados do usuário
+        '401':
+          description: Não autenticado
+        '403':
+          description: Sem permissão
+        '404':
+          description: Não encontrado
+    patch:
+      tags: [Usuarios]
+      summary: Atualizar senha do usuário
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordUpdateRequest'
+            examples:
+              default:
+                value:
+                  senhaAtual: "123456"
+                  novaSenha: "1234567891"
+                  confirmaSenha: "1234567891"
+      responses:
+        '200':
+          description: Senha atualizada
+        '400':
+          description: Erro de validação
+        '401':
+          description: Não autenticado
+        '403':
+          description: Sem permissão
+        '404':
+          description: Usuário não encontrado
+
+  /api/v1/usuarios:
+    get:
+      tags: [Usuarios]
+      summary: Listar usuários (paginação)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 10
+      responses:
+        '200':
+          description: Página de usuários
+        '401':
+          description: Não autenticado
+        '403':
+          description: Sem permissão
+
+  /api/v1/clientes:
+    get:
+      tags: [Clientes]
+      summary: Listar clientes
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de clientes
+        '401':
+          description: Não autenticado
+        '403':
+          description: Sem permissão
+    post:
+      tags: [Clientes]
+      summary: Criar cliente
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientCreateRequest'
+            examples:
+              default:
+                value:
+                  nome: tody da silva
+                  cpf: "11259547019"
+      responses:
+        '201':
+          description: Cliente criado
+        '400':
+          description: Erro de validação
+        '401':
+          description: Não autenticado
+        '403':
+          description: Sem permissão
+
+  /api/v1/clientes/detalhes:
+    get:
+      tags: [Clientes]
+      summary: Buscar detalhes do cliente autenticado/filtrado (conforme sua regra)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Detalhes do cliente
+        '401':
+          description: Não autenticado
+        '403':
+          description: Sem permissão
+        '404':
+          description: Não encontrado
+
+  /api/v1/vagas:
+    post:
+      tags: [Vagas]
+      summary: Criar vaga
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParkingSpotCreateRequest'
+            examples:
+              default:
+                value:
+                  codigo: A-08
+                  status: LIVRE
+      responses:
+        '201':
+          description: Vaga criada
+        '400':
+          description: Erro de validação
+        '401':
+          description: Não autenticado
+        '403':
+          description: Sem permissão
+
+  /api/v1/vagas/{codigo}:
+    get:
+      tags: [Vagas]
+      summary: Obter vaga por código
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: codigo
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Dados da vaga
+        '401':
+          description: Não autenticado
+        '403':
+          description: Sem permissão
+        '404':
+          description: Não encontrado
+
+  /api/v1/estacionamentos/check-in:
+    post:
+      tags: [Estacionamentos]
+      summary: Realizar check-in de veículo
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckInRequest'
+            examples:
+              default:
+                value:
+                  clienteCpf: "11259547019"
+                  placa: ASC-1234
+                  marca: FIAT
+                  modelo: Siena
+                  cor: azul
+      responses:
+        '201':
+          description: Check-in efetuado
+        '400':
+          description: Erro de validação
+        '401':
+          description: Não autenticado
+        '403':
+          description: Sem permissão
+        '404':
+          description: Cliente ou vaga não encontrado
+
+  /api/v1/estacionamentos/check-out/{recibo}:
+    get:
+      tags: [Estacionamentos]
+      summary: Realizar check-out de veículo pelo recibo
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: recibo
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "20250929-193541"
+      responses:
+        '200':
+          description: Check-out efetuado com cálculo de valores
+        '401':
+          description: Não autenticado
+        '403':
+          description: Sem permissão
+        '404':
+          description: Recibo não encontrado
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    AuthRequest:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 6
+
+    UserCreateRequest:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 6
+        role:
+          type: string
+          description: Se não informado, a aplicação pode assumir ROLE_CLIENT (confira sua implementação)
+
+    PasswordUpdateRequest:
+      type: object
+      required: [senhaAtual, novaSenha, confirmaSenha]
+      properties:
+        senhaAtual:
+          type: string
+        novaSenha:
+          type: string
+        confirmaSenha:
+          type: string
+
+    ClientCreateRequest:
+      type: object
+      required: [nome, cpf]
+      properties:
+        nome:
+          type: string
+        cpf:
+          type: string
+          description: CPF numérico (somente dígitos)
+
+    ParkingSpotCreateRequest:
+      type: object
+      required: [codigo, status]
+      properties:
+        codigo:
+          type: string
+          example: A-08
+        status:
+          type: string
+          enum: [LIVRE, OCUPADA, INATIVA]
+
+    CheckInRequest:
+      type: object
+      required: [clienteCpf, placa, marca, modelo, cor]
+      properties:
+        clienteCpf:
+          type: string
+        placa:
+          type: string
+        marca:
+          type: string
+        modelo:
+          type: string
+        cor:
+          type: string
+security:
+  - bearerAuth: []
