@@ -7,8 +7,8 @@ API REST para gerenciamento de estacionamento, com suporte a **usuários**, **cl
 
 ## Para abrir o swagger basta acesar site:
 https://editor.swagger.io/ </br>
-Abrir em File > import file 
-selecionar o arquvivo do `"Projeto-DSC\pasta das collections\openapi-projeto-dcs.yaml"` 
+Abrir em File > import file  </br>
+Selecionar o arquvivo do `"Projeto-DSC\pasta das collections\openapi-projeto-dcs.yaml"` </br>
 Que a ducumentação swagger estara disponivel 
 
 ## Docker para Banco de Dados (PostgreSQL)
